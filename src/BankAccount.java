@@ -13,14 +13,11 @@ public abstract class BankAccount
 	double balance;
 	
 	//Constructors
-	public BankAccount(String n)
-	{
-		name = n;
-		acctNumber = nextAccNum;
-		balance = 0;
-		nextAccNum++;
-	}
-	
+	/**
+	 * Creates a bank account with a balance initialized as a specific value
+	 * @param n		name
+	 * @param b		balance
+	 */
 	public BankAccount(String n, double b)
 	{
 		name = n;
@@ -28,7 +25,14 @@ public abstract class BankAccount
 		balance = b;
 		nextAccNum ++;
 	}
-	
+	/**
+	 * Creates a bank account with a balance initialized as 0
+	 * @param n		name
+	 */
+	public BankAccount(String n)
+	{
+		this(n,0);
+	}
 	//Methods
 	/**
 	 * Adds an amount to the balance of a bank account
@@ -67,7 +71,7 @@ public abstract class BankAccount
 		return balance;
 	}
 	/**
-	 * 
+	 * Abstract method to be instantiated in sub classes
 	 */
 	public abstract void endOfMonthUpdate();
 	/**

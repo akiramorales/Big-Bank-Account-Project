@@ -11,9 +11,16 @@ public class SavingsAccount extends BankAccount
 	private final double MIN_BAL_FEE;
 	
 	//Constructors
+	/**
+	 * Creates a savings account with a balance initialized as 0
+	 * @param n		name
+	 * @param r		interest rate
+	 * @param mb	minimum balance
+	 * @param mbf	minimum balance fee
+	 */
 	public SavingsAccount(String n, double r, double mb, double mbf)
 	{
-		super(name, balance, acctNumber);
+		super(n);
 		name = n;
 		balance = 0;
 		acctNumber = nextAccNum;
@@ -21,10 +28,17 @@ public class SavingsAccount extends BankAccount
 		MIN_BAL = mb;
 		MIN_BAL_FEE = mbf;
 	}
-	
+	/**
+	 * Creates a savings account with a balanced initialized as a specified value
+	 * @param n		name
+	 * @param b		balance
+	 * @param r		interest rate
+	 * @param mb	minimum balance
+	 * @param mbf	minimum balance fee
+	 */
 	public SavingsAccount(String n, double b, double r, double mb, double mbf)
 	{
-		super(name, balance, acctNumber);
+		super(n, b);
 		name = n;
 		balance = b;
 		acctNumber = nextAccNum;
@@ -63,14 +77,6 @@ public class SavingsAccount extends BankAccount
 		{
 			this.balance -= amt;
 			balance += amt;
-			if(other == (CheckingAccount)other)
-			{
-				other.numTransactions++;
-				if(other.numTransactions > FREE_TRANS)
-				{
-					other.balance -= TRANSACTION_FEE;
-				}
-			}
 		}
 		else throw new IllegalArgumentException();
 		return balance;

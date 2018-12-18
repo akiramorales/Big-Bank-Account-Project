@@ -12,9 +12,16 @@ public class CheckingAccount extends BankAccount
 	private int numTransactions;
 	
 	//Constructors
+	/**
+	 * Creates a checking account with a balance initialized as 0
+	 * @param n				name
+	 * @param odf			over draft fee
+	 * @param tf			transaction fee
+	 * @param freeTrans		number of free transactions
+	 */
 	public CheckingAccount(String n, double odf, double tf, int freeTrans)
 	{
-		super(name, balance, acctNumber);
+		super(n, 0);
 		name = n;
 		balance = 0;
 		acctNumber = nextAccNum;
@@ -23,10 +30,17 @@ public class CheckingAccount extends BankAccount
 		FREE_TRANS = freeTrans;
 		numTransactions = 0;
 	}
-	
+	/**
+	 * Creates a checking account with balance initialized as a specific value
+	 * @param n				name
+	 * @param b				balance
+	 * @param odf			over draft fee
+	 * @param tf			transaction fee
+	 * @param freeTrans		number of free transactions
+	 */
 	public CheckingAccount(String n, double b, double odf, double tf, int freeTrans)
 	{
-		super(name, balance, acctNumber);
+		super(n, b);
 		name = n;
 		balance = b;
 		acctNumber = nextAccNum;
