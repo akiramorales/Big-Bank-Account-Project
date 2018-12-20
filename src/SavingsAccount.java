@@ -18,7 +18,7 @@ public class SavingsAccount extends BankAccount
 	 * @param mb	minimum balance
 	 * @param mbf	minimum balance fee
 	 */
-	public SavingsAccount(String n, double r, double mb, double mbf)
+	public SavingsAccount(String n, double r, int mb, int mbf)
 	{
 		super(n);
 		name = n;
@@ -36,7 +36,7 @@ public class SavingsAccount extends BankAccount
 	 * @param mb	minimum balance
 	 * @param mbf	minimum balance fee
 	 */
-	public SavingsAccount(String n, double b, double r, double mb, double mbf)
+	public SavingsAccount(String n, int b, double r, int mb, int mbf)
 	{
 		super(n, b);
 		name = n;
@@ -48,11 +48,11 @@ public class SavingsAccount extends BankAccount
 	}
 	
 	/**
-	 * Withdrawals an amount from the savings account, including fees
+	 * Withdraws an amount from the savings account, including fees
 	 * @param amt	amount
 	 * @return 		the balance of the account, or throws an illegal argument exception
 	 */
-	public double withdrawal(double amt)
+	public double withdraw(double amt)
 	{
 		if(balance - amt >= 0 && amt > 0)
 		{

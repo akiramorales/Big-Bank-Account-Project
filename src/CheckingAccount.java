@@ -71,11 +71,11 @@ public class CheckingAccount extends BankAccount
 		return balance;
 	}
 	/**
-	 * Withdrawals an amount from the balance of the checking account, including fees
+	 * Withdraws an amount from the balance of the checking account, including fees
 	 * @param amt	amount
 	 * @return 		Returns the balance or throws an illegal arguments exception
 	 */
-	public double withdrawal(double amt)
+	public double withdraw(double amt)
 	{
 		if(balance >= 0 && amt > 0)
 		{

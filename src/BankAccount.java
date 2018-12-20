@@ -45,11 +45,11 @@ public abstract class BankAccount
 		return balance;
 	}
 	/**
-	 * Withdrawals an amount of the balance of a bank account
+	 * Withdraws an amount of the balance of a bank account
 	 * @param amt	amount
 	 * @return		the balance of the account after an amount is withdrawn
 	 */
-	public double withdrawal(double amt)
+	public double withdraw(double amt)
 	{
 		balance -= amt;
 		return balance;
