@@ -41,7 +41,9 @@ public abstract class BankAccount
 	 */
 	public double deposit(double amt)
 	{
+		if(amt > 0)
 		balance += amt;
+		else  throw  new IllegalArgumentException();
 		return balance;
 	}
 	/**
@@ -51,7 +53,9 @@ public abstract class BankAccount
 	 */
 	public double withdraw(double amt)
 	{
+		if(amt > 0)
 		balance -= amt;
+		else throw new IllegalArgumentException();
 		return balance;
 	}
 	/**

@@ -22,9 +22,6 @@ public class CheckingAccount extends BankAccount
 	public CheckingAccount(String n, double odf, double tf, int freeTrans)
 	{
 		super(n, 0);
-		name = n;
-		balance = 0;
-		acctNumber = nextAccNum;
 		OVER_DRAFT_FEE = odf;
 		TRANSACTION_FEE = tf;
 		FREE_TRANS = freeTrans;
@@ -41,9 +38,6 @@ public class CheckingAccount extends BankAccount
 	public CheckingAccount(String n, double b, double odf, double tf, int freeTrans)
 	{
 		super(n, b);
-		name = n;
-		balance = b;
-		acctNumber = nextAccNum;
 		OVER_DRAFT_FEE = odf;
 		TRANSACTION_FEE = tf;
 		FREE_TRANS = freeTrans;
@@ -65,6 +59,11 @@ public class CheckingAccount extends BankAccount
 			if(numTransactions > FREE_TRANS)
 			{
 				balance -= TRANSACTION_FEE;
+				
+			}
+			if(this.balance < 0)
+			{
+				this.balance -= OVER_DRAFT_FEE;
 			}
 		}
 		else throw new IllegalArgumentException();
@@ -85,6 +84,10 @@ public class CheckingAccount extends BankAccount
 			{
 				balance -= TRANSACTION_FEE;
 			}
+			if(this.balance < 0)
+			{
+				this.balance -= OVER_DRAFT_FEE;
+			}
 		}
 		else throw new IllegalArgumentException();
 		return balance;
@@ -97,18 +100,22 @@ public class CheckingAccount extends BankAccount
 	 */
 	public double transfer(BankAccount other, double amt)
 	{
-		if(other.getName().equals(this.getName()) && (numTransactions <= FREE_TRANS || this.balance - TRANSACTION_FEE >= 0 && amt > 0))
+		if(other.getName().equals(this.getName()) && amt > 0 && amt <= this.balance)
 		{
 			this.numTransactions++;
-			this.balance -= amt;
-			balance += amt;
+			this.withdraw(amt);
+			other.deposit(amt);
 			if(numTransactions > FREE_TRANS)
 			{
-				balance -= TRANSACTION_FEE;
+				this.balance -= TRANSACTION_FEE;
+			}
+			if(this.balance < 0)
+			{
+				this.balance -= OVER_DRAFT_FEE;
 			}
 		}
 		else throw new IllegalArgumentException();
-		return balance;
+		return this.balance;
 	}
 	/**
 	 * Resets the number of transactions on the checking account to 0

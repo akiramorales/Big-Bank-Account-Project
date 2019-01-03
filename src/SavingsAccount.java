@@ -21,9 +21,6 @@ public class SavingsAccount extends BankAccount
 	public SavingsAccount(String n, double r, int mb, int mbf)
 	{
 		super(n);
-		name = n;
-		balance = 0;
-		acctNumber = nextAccNum;
 		intRate = r;
 		MIN_BAL = mb;
 		MIN_BAL_FEE = mbf;
@@ -39,9 +36,6 @@ public class SavingsAccount extends BankAccount
 	public SavingsAccount(String n, int b, double r, int mb, int mbf)
 	{
 		super(n, b);
-		name = n;
-		balance = b;
-		acctNumber = nextAccNum;
 		intRate = r;
 		MIN_BAL = mb;
 		MIN_BAL_FEE = mbf;
@@ -73,14 +67,15 @@ public class SavingsAccount extends BankAccount
 	 */
 	public double transfer(BankAccount other, double amt)
 	{
-		if(other.getName().equals(this.getName()) && this.balance - amt >= 0 && amt > 0)
+		if(other.getName().equals(this.getName()) && amt > 0 && amt <= this.balance)
 		{
-			this.balance -= amt;
-			balance += amt;
+			this.withdraw(amt);
+			other.deposit(amt);
 		}
 		else throw new IllegalArgumentException();
 		return balance;
 	}
+	
 	/**
 	 * Calculates and adds interest to the balance
 	 */
