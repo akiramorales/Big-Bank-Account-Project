@@ -24,9 +24,42 @@ public class BankAccountMain
 				System.out.println("Invalid input, please enter a valid command.");
 				in.nextLine();
 			}
-			if(input.equals("add") || input.equals("Add"))
+			switch (input)
 			{
-				System.out.println("Would you like to withdraw, deposit, or transfer?\nPlease enter a command (\"withdraw,\" \"deposit,\" or \"transfer,\").");
+				case "add":
+				{
+					System.out.println("What type of account would you like to open?/nPlease type \"checking\" for a checking account and \"savings\" for a savings account.");
+					in.nextLine();
+					while(!(input.equals("checking") && input.equals("Checking") && input.equals("savings") && input.equals("Savings")))
+					{
+						System.out.println("Invalid response, please enter \"checking\" or \"savings\" to create an account.");
+						in.nextLine();
+					}
+					switch (input)
+					{
+						case "checking":
+						{
+							System.out.println("Please enter your name.");
+							in.nextLine();
+							bankAccounts.add(new CheckingAccount(input, OVER_DRAFT_FEE, TRANSACTION_FEE, FREE_TRANSACTIONS));
+							break;
+						}
+						case "savings":
+						{
+							System.out.println("Please enter your name");
+							in.nextLine();
+							bankAccounts.add(new SavingsAccount(input, RATE, MIN_BAL, MIN_BAL_FEE));
+							break;
+						}
+						default:
+							return;
+					}
+				case "transaction":
+				{
+							
+				}
+				break;
+				}
 			}
 		}
 	}
