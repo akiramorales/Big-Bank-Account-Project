@@ -13,53 +13,147 @@ public class BankAccountMain
 		final int MIN_BAL_FEE = 10;
 		final int FREE_TRANSACTIONS = 10;
 		Scanner in = new Scanner(System.in);
-		String input = in.nextLine();
 		
-		while(!input.equals("terminate") || !input.equals("Terminate"))
+		while(!in.equals("terminate"))
 		{
-			System.out.println("Welcome, would you like to add an account, make a transaction, or terminate the program?/nPlease enter a command (\"add,\" \"transaction,\" or \"terminate\").");
+			String input = in.nextLine();
+			System.out.println("Welcome, would you like to add an account, make a transaction, or terminate the program?\nPlease enter a command (\"add,\" \"transaction,\" or \"terminate\").");
 			in.nextLine();
-			while(!(input.equals("add") && input.equals("Add") && input.equals("transaction") && input.equals("Transaction") && input.equals("terminate") && input.equals("Terminate")))
+			while(!input.equals("add") || !input.equals("transaction") || !input.equals("terminate"))
 			{
 				System.out.println("Invalid input, please enter a valid command.");
 				in.nextLine();
 			}
 			switch (input)
 			{
-				case "add":
+			case "add":
+			{
+				System.out.println("What type of account would you like to open?/nPlease type \"checking\" for a checking account and \"savings\" for a savings account.");
+				in.nextLine();
+				switch (input)
 				{
-					System.out.println("What type of account would you like to open?/nPlease type \"checking\" for a checking account and \"savings\" for a savings account.");
+				case "checking":
+				{
+					System.out.println("Please enter your name.");
 					in.nextLine();
-					while(!(input.equals("checking") && input.equals("Checking") && input.equals("savings") && input.equals("Savings")))
+					bankAccounts.add(new CheckingAccount(input, OVER_DRAFT_FEE, TRANSACTION_FEE, FREE_TRANSACTIONS));
+					break;
+				}
+				case "savings":
+				{
+					System.out.println("Please enter your name");
+					in.nextLine();
+					bankAccounts.add(new SavingsAccount(input, RATE, MIN_BAL, MIN_BAL_FEE));
+					break;
+				}
+				default:
+					System.out.println("Invalid response, please enter \"checking\" or \"savings\" to create an account.");
+					in.nextLine();
+				}
+			}
+			case "transaction":
+			{
+				System.out.println("Please enter your card number");
+				in.nextLine();
+				int accIndex = 0;
+				for(BankAccount acc : bankAccounts)
+				{
+					while(!input.equals(acc))
 					{
-						System.out.println("Invalid response, please enter \"checking\" or \"savings\" to create an account.");
+						System.out.println("This account does not exist, please enter a valid account number");
 						in.nextLine();
 					}
-					switch (input)
-					{
-						case "checking":
-						{
-							System.out.println("Please enter your name.");
-							in.nextLine();
-							bankAccounts.add(new CheckingAccount(input, OVER_DRAFT_FEE, TRANSACTION_FEE, FREE_TRANSACTIONS));
-							break;
-						}
-						case "savings":
-						{
-							System.out.println("Please enter your name");
-							in.nextLine();
-							bankAccounts.add(new SavingsAccount(input, RATE, MIN_BAL, MIN_BAL_FEE));
-							break;
-						}
-						default:
-							return;
-					}
-				case "transaction":
+					accIndex = Integer.parseInt(input) - 1;
+				}
+				System.out.println("Would you like to deposit, withdraw, or transfer?");
+				in.nextLine();
+				switch (input)
 				{
-							
+				case "deposit":
+				{
+					System.out.println("Please enter the amount you would like to deposit");
+					in.nextLine();
+					boolean isNumeric;
+					try
+					{
+						Double.parseDouble(input);
+						isNumeric = true;
+					}
+					catch(IllegalArgumentException e)
+					{
+						isNumeric = false;
+					}
+					double amt = Double.parseDouble(input);
+					bankAccounts.get(accIndex).deposit(amt);
+					break;	
 				}
-				break;
+				case "withdraw":
+				{
+					try
+					{
+						System.out.println("Please enter the amount you would like to withdraw");
+						in.nextLine();
+						boolean isNumeric;
+						try
+						{
+							Double.parseDouble(input);
+							isNumeric = true;
+						}
+						catch(IllegalArgumentException e)
+						{
+							isNumeric = false;
+						}
+						double amt = Double.parseDouble(input);
+						bankAccounts.get(accIndex).withdraw(amt);
+					}
+					catch(IllegalArgumentException noAuth)
+					{
+						System.out.println("Transaction not authorized.");
+					}
+					break;
 				}
+				case "transfer":
+				{
+					try
+					{
+						System.out.println("Please enter the number of the account you are transferring money to");
+						in.nextLine();
+						int otherAcc = 0;
+						for(BankAccount acc : bankAccounts)
+						{
+							while(!input.equals(acc))
+							{
+								System.out.println("This account does not exist, please enter a valid account number");
+								in.nextLine();
+							}
+						otherAcc = Integer.parseInt(input);
+						}
+						System.out.println("Please enter the amount you would like to transfer");
+						in.nextLine();
+						boolean isNumeric;
+						try
+						{
+							Double.parseDouble(input);
+							isNumeric = true;
+						}
+						catch(IllegalArgumentException e)
+						{
+							isNumeric = false;
+						}
+						double amt = Double.parseDouble(input);
+						bankAccounts.get(accIndex).transfer(bankAccounts.get(otherAcc), amt);
+					}
+					catch(IllegalArgumentException noAuth)
+					{
+						System.out.println("Transaction not authorized.");
+					}
+					break;
+				}
+				default:
+					System.out.println("Invalid response, please enter \"deposit,\" \"withdraw,\" or \"transfer\" to make a transaction.");
+					in.nextLine();
+				}
+			}
 			}
 		}
 	}
