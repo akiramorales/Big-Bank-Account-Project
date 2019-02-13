@@ -16,9 +16,9 @@ public class BankAccountMain
 		
 		while(!in.equals("terminate"))
 		{
-			String input = in.nextLine();
+			String input;
 			System.out.println("Welcome, would you like to add an account, make a transaction, or terminate the program?\nPlease enter a command (\"add,\" \"transaction,\" or \"terminate\").");
-			in.nextLine();
+			input = in.nextLine();
 			while(!input.equals("add") || !input.equals("transaction") || !input.equals("terminate"))
 			{
 				System.out.println("Invalid input, please enter a valid command.");
