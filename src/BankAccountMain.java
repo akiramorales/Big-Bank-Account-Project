@@ -16,63 +16,63 @@ public class BankAccountMain
 		
 		while(!in.equals("terminate"))
 		{
-			String input;
+			String input = "";
 			System.out.println("Welcome, would you like to add an account, make a transaction, or terminate the program?\nPlease enter a command (\"add,\" \"transaction,\" or \"terminate\").");
-			input = in.nextLine();
-			while(!input.equals("add") || !input.equals("transaction") || !input.equals("terminate"))
+			in.nextLine();
+			while(!in.equals("add") || !in.equals("transaction") || !in.equals("terminate"))
 			{
 				System.out.println("Invalid input, please enter a valid command.");
-				in.nextLine();
+				input = in.nextLine();
 			}
 			switch (input)
 			{
 			case "add":
 			{
 				System.out.println("What type of account would you like to open?/nPlease type \"checking\" for a checking account and \"savings\" for a savings account.");
-				in.nextLine();
+				input = in.nextLine();
 				switch (input)
 				{
 				case "checking":
 				{
 					System.out.println("Please enter your name.");
-					in.nextLine();
+					input = in.nextLine();
 					bankAccounts.add(new CheckingAccount(input, OVER_DRAFT_FEE, TRANSACTION_FEE, FREE_TRANSACTIONS));
 					break;
 				}
 				case "savings":
 				{
 					System.out.println("Please enter your name");
-					in.nextLine();
+					input = in.nextLine();
 					bankAccounts.add(new SavingsAccount(input, RATE, MIN_BAL, MIN_BAL_FEE));
 					break;
 				}
 				default:
 					System.out.println("Invalid response, please enter \"checking\" or \"savings\" to create an account.");
-					in.nextLine();
+					input = in.nextLine();
 				}
 			}
 			case "transaction":
 			{
 				System.out.println("Please enter your card number");
-				in.nextLine();
+				input = in.nextLine();
 				int accIndex = 0;
 				for(BankAccount acc : bankAccounts)
 				{
 					while(!input.equals(acc))
 					{
 						System.out.println("This account does not exist, please enter a valid account number");
-						in.nextLine();
+						input = in.nextLine();
 					}
 					accIndex = Integer.parseInt(input) - 1;
 				}
 				System.out.println("Would you like to deposit, withdraw, or transfer?");
-				in.nextLine();
+				input = in.nextLine();
 				switch (input)
 				{
 				case "deposit":
 				{
 					System.out.println("Please enter the amount you would like to deposit");
-					in.nextLine();
+					input = in.nextLine();
 					boolean isNumeric;
 					try
 					{
@@ -92,7 +92,7 @@ public class BankAccountMain
 					try
 					{
 						System.out.println("Please enter the amount you would like to withdraw");
-						in.nextLine();
+						input = in.nextLine();
 						boolean isNumeric;
 						try
 						{
@@ -117,19 +117,19 @@ public class BankAccountMain
 					try
 					{
 						System.out.println("Please enter the number of the account you are transferring money to");
-						in.nextLine();
+						input = in.nextLine();
 						int otherAcc = 0;
 						for(BankAccount acc : bankAccounts)
 						{
 							while(!input.equals(acc))
 							{
 								System.out.println("This account does not exist, please enter a valid account number");
-								in.nextLine();
+								input = in.nextLine();
 							}
 						otherAcc = Integer.parseInt(input);
 						}
 						System.out.println("Please enter the amount you would like to transfer");
-						in.nextLine();
+						input = in.nextLine();
 						boolean isNumeric;
 						try
 						{
@@ -151,10 +151,11 @@ public class BankAccountMain
 				}
 				default:
 					System.out.println("Invalid response, please enter \"deposit,\" \"withdraw,\" or \"transfer\" to make a transaction.");
-					in.nextLine();
+					input = in.nextLine();
 				}
 			}
 			}
 		}
+		System.out.println("Thank you for banking with us.");
 	}
 }
