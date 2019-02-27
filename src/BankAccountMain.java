@@ -59,7 +59,7 @@ public class BankAccountMain
 				int accIndex = 0;
 				for(BankAccount acc : bankAccounts)
 				{
-					while(!input.equals(acc))
+					while(!input.equals(accIndex))
 					{
 						System.out.println("This account does not exist, please enter a valid account number");
 						input = in.nextLine();
@@ -68,7 +68,7 @@ public class BankAccountMain
 				}
 				System.out.println("Would you like to deposit, withdraw, or transfer?");
 				input = in.nextLine();
-				switch (response)
+				switch (input)
 				{
 				case "deposit":
 				{
