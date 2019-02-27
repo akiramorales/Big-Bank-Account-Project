@@ -13,22 +13,22 @@ public class BankAccountMain
 		final int MIN_BAL_FEE = 10;
 		final int FREE_TRANSACTIONS = 10;
 		Scanner in = new Scanner(System.in);
-		
-		while(!in.equals("terminate"))
+		String response = "";
+		while(!response.equals("terminate"))
 		{
 			String input = "";
 			System.out.println("Welcome, would you like to add an account, make a transaction, or terminate the program?\nPlease enter a command (\"add,\" \"transaction,\" or \"terminate\").");
-			in.nextLine();
-			while(!in.equals("add") || !in.equals("transaction") || !in.equals("terminate"))
+			response = in.nextLine();
+			while(!response.equals("add") && !response.equals("transaction") && !response.equals("terminate"))
 			{
 				System.out.println("Invalid input, please enter a valid command.");
-				input = in.nextLine();
+				response = in.nextLine();
 			}
-			switch (input)
+			switch (response)
 			{
 			case "add":
 			{
-				System.out.println("What type of account would you like to open?/nPlease type \"checking\" for a checking account and \"savings\" for a savings account.");
+				System.out.println("What type of account would you like to open?\nPlease type \"checking\" for a checking account and \"savings\" for a savings account.");
 				input = in.nextLine();
 				switch (input)
 				{
@@ -50,6 +50,7 @@ public class BankAccountMain
 					System.out.println("Invalid response, please enter \"checking\" or \"savings\" to create an account.");
 					input = in.nextLine();
 				}
+				break;
 			}
 			case "transaction":
 			{
@@ -67,7 +68,7 @@ public class BankAccountMain
 				}
 				System.out.println("Would you like to deposit, withdraw, or transfer?");
 				input = in.nextLine();
-				switch (input)
+				switch (response)
 				{
 				case "deposit":
 				{
