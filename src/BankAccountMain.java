@@ -56,15 +56,25 @@ public class BankAccountMain
 			{
 				System.out.println("Please enter your card number");
 				input = in.nextLine();
+				boolean isNumeric;
+				try
+				{
+					Double.parseDouble(input);
+					isNumeric = true;
+				}
+				catch(IllegalArgumentException e)
+				{
+					isNumeric = false;
+				}
 				int accIndex = 0;
+				accIndex = Integer.parseInt(input) - 1;
 				for(BankAccount acc : bankAccounts)
 				{
-					while(!input.equals(accIndex))
+					while(!acc.equals(accIndex))
 					{
 						System.out.println("This account does not exist, please enter a valid account number");
 						input = in.nextLine();
 					}
-					accIndex = Integer.parseInt(input) - 1;
 				}
 				System.out.println("Would you like to deposit, withdraw, or transfer?");
 				input = in.nextLine();
@@ -74,7 +84,6 @@ public class BankAccountMain
 				{
 					System.out.println("Please enter the amount you would like to deposit");
 					input = in.nextLine();
-					boolean isNumeric;
 					try
 					{
 						Double.parseDouble(input);
@@ -83,6 +92,7 @@ public class BankAccountMain
 					catch(IllegalArgumentException e)
 					{
 						isNumeric = false;
+						System.out.println("Invalid input, please enter a valid amount.");
 					}
 					double amt = Double.parseDouble(input);
 					bankAccounts.get(accIndex).deposit(amt);
@@ -94,7 +104,6 @@ public class BankAccountMain
 					{
 						System.out.println("Please enter the amount you would like to withdraw");
 						input = in.nextLine();
-						boolean isNumeric;
 						try
 						{
 							Double.parseDouble(input);
@@ -103,6 +112,7 @@ public class BankAccountMain
 						catch(IllegalArgumentException e)
 						{
 							isNumeric = false;
+							System.out.println("Invalid input, please enter an amount.");
 						}
 						double amt = Double.parseDouble(input);
 						bankAccounts.get(accIndex).withdraw(amt);
@@ -131,7 +141,7 @@ public class BankAccountMain
 						}
 						System.out.println("Please enter the amount you would like to transfer");
 						input = in.nextLine();
-						boolean isNumeric;
+
 						try
 						{
 							Double.parseDouble(input);
